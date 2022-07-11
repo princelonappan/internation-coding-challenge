@@ -20,7 +20,7 @@ This application provides the admin to manage the features.
 
 First, clone the repo:
 ```bash
-$ git clone https://github.com/princelonappan/internation-coding-challenge.git
+$ git clone https://github.com/princelonappan/internations-coding-challenge.git
 ```
 #### Install dependencies
 ```
