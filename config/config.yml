@@ -1,0 +1,8 @@
+easy_admin:
+  site_name: 'ACME Megacorp.'
+  entities:
+    Customer:
+      class: App\Entity\Group;
+      list:
+        # 'name' doesn't exist as a Doctrine entity property
+        fields: [ 'id', 'name', 'phone', 'email' ]

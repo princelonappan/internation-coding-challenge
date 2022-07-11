@@ -1,0 +1,56 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}{{ group.name }} - Manage Group's User{% endblock %}
+{% block page_actions %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <div class="global-actions">
+        <a class=" action-new btn btn-primary" href="{{ url }}" data-action-name="new">
+            Add User
+        </a>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <table class="datagrid">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Address</td>
+            <td>Action</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for user in userGroups %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.userId.name }}</td>
+                <td>{{ user.userId.email }}</td>
+                <td>{{ user.userId.address }}</td>
+                <td><a href="#" class="delete" data-user-id="{{ user.userId.id }}">Delete </a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <script>
+            $('.delete').on('click', function () {
+                var userId = $(this).data('user-id');
+                var decodedUrl = '{{ updateUrl }}'.replace(/&amp;/g, '&');
+                var decodedRedirectionUrl = '{{ redirectionUrl }}'.replace(/&amp;/g, '&');
+                $.ajax({
+                    type: 'POST',
+                    url: decodedUrl,
+                    data: 'action=delete&userIds=' + userId + '&groupId=' +{{ groupId }}, // all data will be passed here
+                    success: function (data) {
+                        window.location.href = decodedRedirectionUrl;
+                    }
+                });
+            });
+        </script>
+    </table>
+{% endblock %}

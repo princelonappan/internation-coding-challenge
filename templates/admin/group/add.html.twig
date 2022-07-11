@@ -1,0 +1,62 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block content_title %}Add Users{% endblock %}
+{% block page_actions %}
+    <div class="global-actions">
+        <button class=" action-new btn btn-primary" href="#" id="add-user" data-action-name="new">Add</button>
+
+    </div>
+{% endblock %}
+
+{% block main %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form>
+            <input type="hidden" name="groupId" value="{{ groupId }}">
+            <input type="hidden" name="action" value="add">
+            {% for user in users %}
+                <tr>
+                    <td><input type="checkbox" name="userIds[]" class="form-check-input form-batch-checkbox"
+                               value="{{ user.id }}"></td>
+                    <td>
+                        {{ user.name }}
+                    </td>
+                    <td>{{ user.email }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">no records found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </form>
+    </table>
+
+    <script>
+        $('#add-user').on('click', function () {
+            var checks = $("input[type='checkbox']:checked");
+            var decodedUrl = '{{ url }}'.replace(/&amp;/g, '&');
+            var decodedRedirectionUrl = '{{ redirectionUrl }}'.replace(/&amp;/g, '&');
+            if (checks.length > 0) {
+                var data = $("form").serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: decodedUrl,
+                    data: data, // all data will be passed here
+                    success: function (data) {
+                        window.location.href = decodedRedirectionUrl;
+                    }
+                });
+            } else {
+                alert("Please select at least one user")
+            }
+        });
+    </script>
+{% endblock %}
