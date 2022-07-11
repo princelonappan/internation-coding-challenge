@@ -51,5 +51,3 @@ $ {{ base_url}}/admin - Admin URL
 
 You can access the Swagger API through the following end point. <br />
 ```/api```
-
-#### Screenshots & Diagrams
