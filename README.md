@@ -25,7 +25,7 @@ $ git clone https://github.com/princelonappan/internations-coding-challenge.git
 ```
 #### Install dependencies
 ```
-$ cd internation-coding-challenge
+$ cd internations-coding-challenge
 $ composer install
 ```
 ```
